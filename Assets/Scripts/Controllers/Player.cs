@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,8 @@ public class Player : MonoBehaviour
     public List<Transform> asteroidTransforms;
     public float bombTrailSpacing;
     public int numberOfTrailBombs;
+    public float distanceFromPlayer;
+    
     
     // Update is called once per frame
     void Update()
@@ -20,6 +23,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SpawnBombOnRandomCorner(distanceFromPlayer);
         }
     }
 
@@ -37,5 +45,23 @@ public class Player : MonoBehaviour
             Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
 
         }
+    }
+
+    public void SpawnBombOnRandomCorner(float inDistance)
+    {
+        Vector3[] cornerSpawnPositions = new Vector3[] //spawn corners
+        {
+        new Vector3(-inDistance, -inDistance, 0),
+        new Vector3(-inDistance, inDistance, 0),
+        new Vector3(inDistance, inDistance, 0),
+        new Vector3(inDistance, -inDistance, 0)
+        };
+
+        int randomPosition = Random.Range(0, cornerSpawnPositions.Length); //allows the bombs to be spawned in 1 of the 4 corners
+
+        Vector3 randomSpawnPoint = cornerSpawnPositions[randomPosition]; //randomly selects a position to spawn bombs at
+    
+       
+        Instantiate(bombPrefab, randomSpawnPoint, Quaternion.identity); //instantiate the bombs
     }
 }

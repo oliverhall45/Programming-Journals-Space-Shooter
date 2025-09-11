@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public int numberOfTrailBombs;
     public float distanceFromPlayer;
     public float positionRatio;
+    public float maxRange;
     
     
     // Update is called once per frame
@@ -41,6 +42,11 @@ public class Player : MonoBehaviour
         if (positionRatio > 1f)
         {
             positionRatio = 1f;
+        }
+
+        if(transform.position.x >= distanceFromPlayer && transform.position.x <= distanceFromPlayer && transform.position.y >= distanceFromPlayer && transform.position.y <= distanceFromPlayer)
+        {
+            DetectAsteroids(maxRange, asteroidTransforms);
         }
     }
 
@@ -84,5 +90,23 @@ public class Player : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, target.position, ratio / 100f);
 
 
+    }
+
+    public void DetectAsteroids(float inMaxRange, List<Transform> inAsteroids)
+    {
+        for (int i = 0; i < inAsteroids.Count; i++)
+        {
+            Transform asteroid = inAsteroids[inAsteroids.Count - 9];
+            float distance = Vector3.Distance(asteroid.position, transform.position);
+            
+            if(distance <= inMaxRange)
+            {
+                Vector3 direction = (asteroid.position - transform.position).normalized;
+                Vector3 lineEnd = transform.position + direction * 2.5f;
+
+                Debug.Log("wub");
+            }
+        }
+            
     }
 }

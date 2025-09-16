@@ -50,12 +50,14 @@ public class Player : MonoBehaviour
             velocity += acceleration * Time.deltaTime * Vector3.down;
         }
 
-        if (!Input.GetKey(KeyCode.LeftArrow) && (!Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.UpArrow)) && (!Input.GetKey(KeyCode.DownArrow)))
-        {
-            velocity -= acceleration / Time.deltaTime * Vector3.zero;
-        }
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
         transform.position += velocity * Time.deltaTime;
+
+        if (!Input.GetKey(KeyCode.LeftArrow) && (!Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.UpArrow)) && (!Input.GetKey(KeyCode.DownArrow)))
+        {
+            
+        }
+        
     }
 
 }

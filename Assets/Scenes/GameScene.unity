@@ -305,6 +305,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4194190890010494449, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
   m_PrefabInstance: {fileID: 304943159}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &367370521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+  m_PrefabInstance: {fileID: 2030902519}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &367370524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367370521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d47aa4a8b38e97448c22dbfdc9e14da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidTransforms: []
+  enemyTransform: {fileID: 0}
+  bombPrefab: {fileID: 0}
+  bombsTransform: {fileID: 0}
+  speed: 9
+  playerPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &578339795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,11 +466,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.37
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.66
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1004,20 +1027,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
-      propertyPath: distanceFromPlayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: numberOfTrailBombs
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: asteroidTransforms.Array.size
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
-      propertyPath: cornerSpawnPositions.Array.size
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: 'asteroidTransforms.Array.data[0]'
@@ -1062,7 +1077,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 367370524}
   m_SourcePrefab: {fileID: 100100000, guid: abc125f00ae369940b2c5c0275186637, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

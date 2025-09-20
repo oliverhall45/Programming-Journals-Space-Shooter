@@ -28,35 +28,55 @@ public class Player : MonoBehaviour
     {
         float acceleration = maxSpeed / accelerationTime;
         float deacceleration = maxSpeed / deaccelerationTime;
+        Vector3 inputDirection = Vector3.zero;
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.left;
-            timePassed += Time.deltaTime;
+            inputDirection += Vector3.left;
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.right;
+            inputDirection += Vector3.right;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.up;
+            inputDirection += Vector3.up;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            velocity += acceleration * Time.deltaTime * Vector3.down;
+            inputDirection += Vector3.down;
+        }
+
+        inputDirection.Normalize(); //keeps the player from moving twice as fast when going diagonal
+
+        if(inputDirection != Vector3.zero)
+        {
+            velocity += inputDirection * acceleration * Time.deltaTime; //accelerates while one of the arrow keys is pressed
+        }
+        else
+        {
+            if(velocity.magnitude > 0f)
+            {
+                Vector3 deaccelVector = velocity.normalized * deacceleration * Time.deltaTime;
+
+                if(deaccelVector.magnitude > velocity.magnitude)
+                {
+                    velocity = Vector3.zero; //stops moving so that the player doesn't go backwards when no inputs are pressed
+                }
+                else
+                {
+                    velocity -= deaccelVector; //deaccelerates when no input is pressed
+                }
+            }
         }
 
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
         transform.position += velocity * Time.deltaTime;
 
-        if (!Input.GetKey(KeyCode.LeftArrow) && (!Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.UpArrow)) && (!Input.GetKey(KeyCode.DownArrow)))
-        {
-            
-        }
+       
         
     }
 

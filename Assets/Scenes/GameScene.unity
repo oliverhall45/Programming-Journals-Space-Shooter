@@ -881,6 +881,7 @@ MonoBehaviour:
   - 288
   - 324
   - 360
+  lineDuration: 1
 --- !u!212 &996808415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -945,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 996808413}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.99, y: 12.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

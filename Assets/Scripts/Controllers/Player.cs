@@ -20,12 +20,14 @@ public class Player : MonoBehaviour
 
     [Header("Circle drawer properties")]
     public float radarRadius = 1f;
-    public int numberOfPoints = 6;
+    public int circlePoints = 8;
+
+    public GameObject enemy;
 
     void Update()
     {
         PlayerMovement(); //constantly checks for button inputs in the method
-        CircleDrawer(radarRadius, numberOfPoints);
+        EnemyRadar(radarRadius, circlePoints);
     }
 
     public void PlayerMovement() //allows the player to move around with the arrow keys
@@ -84,26 +86,49 @@ public class Player : MonoBehaviour
         
     }
 
-    public void CircleDrawer(float radius, int numberOfPoints)
+    public void EnemyRadar(float radarRadius, int circlePoints)
     {
-        float angleStep = 360f / numberOfPoints;
+        float angleStep = 360f / circlePoints;
         float radians = angleStep * Mathf.Deg2Rad;
 
+        bool enemyDetected = false;
+
         List<Vector3> points = new List<Vector3>();
-        for (int i = 0; i < numberOfPoints; i++)
+        for (int i = 0; i < circlePoints; i++)
         {
             float adjustment = radians * i;
-            Vector3 point = new Vector3(Mathf.Cos(radians + adjustment), Mathf.Sin(radians + adjustment)) * radians;
+            Vector3 point = new Vector3(Mathf.Cos(radians + adjustment), Mathf.Sin(radians + adjustment)) * radarRadius;
 
             points.Add(point);
         }
 
         Vector3 center = transform.position;
-        for(int i = 0; i < points.Count - 1; i++)
-        {
-            Debug.DrawLine(center + points[i], center + points[i + 1], Color.green);
-        }
+
+
+       
+       float distanceToEnemy = Vector3.Distance(center, enemy.transform.position);
+       if (distanceToEnemy <= radarRadius)
+       {
+          enemyDetected = true;
+       }
         
+
+        if (enemyDetected == true)
+        {
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                Debug.DrawLine(center + points[i], center + points[i + 1], Color.red);
+                Debug.DrawLine(center + points[points.Count - 1], center + points[0], Color.red);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                Debug.DrawLine(center + points[i], center + points[i + 1], Color.green);
+                Debug.DrawLine(center + points[points.Count - 1], center + points[0], Color.green);
+            }
+        }
     }
 
 }

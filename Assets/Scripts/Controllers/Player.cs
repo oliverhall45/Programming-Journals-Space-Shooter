@@ -19,15 +19,24 @@ public class Player : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
     [Header("Circle drawer properties")]
-    public float radarRadius = 1f;
+    public float radius = 1f;
     public int circlePoints = 8;
 
     public GameObject enemy;
 
+    [Header("Powerups properties")]
+    public int numberOfPowerups;
+    public GameObject powerupPrefab;
+
     void Update()
     {
         PlayerMovement(); //constantly checks for button inputs in the method
-        EnemyRadar(radarRadius, circlePoints);
+        EnemyRadar(radius, circlePoints);
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SpawnPowerups(radius, numberOfPowerups);
+        }
     }
 
     public void PlayerMovement() //allows the player to move around with the arrow keys
@@ -86,7 +95,7 @@ public class Player : MonoBehaviour
         
     }
 
-    public void EnemyRadar(float radarRadius, int circlePoints)
+    public void EnemyRadar(float radius, int circlePoints)
     {
         float angleStep = 360f / circlePoints;
         float radians = angleStep * Mathf.Deg2Rad;
@@ -97,7 +106,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < circlePoints; i++)
         {
             float adjustment = radians * i;
-            Vector3 point = new Vector3(Mathf.Cos(radians + adjustment), Mathf.Sin(radians + adjustment)) * radarRadius;
+            Vector3 point = new Vector3(Mathf.Cos(radians + adjustment), Mathf.Sin(radians + adjustment)) * radius;
 
             points.Add(point);
         }
@@ -107,7 +116,7 @@ public class Player : MonoBehaviour
 
        
        float distanceToEnemy = Vector3.Distance(center, enemy.transform.position);
-       if (distanceToEnemy <= radarRadius)
+       if (distanceToEnemy <= radius)
        {
           enemyDetected = true;
        }
@@ -128,6 +137,22 @@ public class Player : MonoBehaviour
                 Debug.DrawLine(center + points[i], center + points[i + 1], Color.green);
                 Debug.DrawLine(center + points[points.Count - 1], center + points[0], Color.green);
             }
+        }
+    }
+
+    public void SpawnPowerups(float radius, int numberOfPowerups)
+    {
+        float angleStep = 360f / numberOfPowerups;
+        float radians = angleStep * Mathf.Deg2Rad;
+
+       
+        
+        for (int i = 0; i < numberOfPowerups; i++)
+        {
+            float adjustment = radians * i;
+            Vector3 offset = new Vector3(Mathf.Cos(radians + adjustment), Mathf.Sin(radians + adjustment)) * radius;
+            Vector3 spawnPosition = transform.position + offset;
+            Instantiate(powerupPrefab, spawnPosition, Quaternion.identity);
         }
     }
 

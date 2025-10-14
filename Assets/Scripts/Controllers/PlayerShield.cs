@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerShield : MonoBehaviour
 {
     public Transform playerTransform;
+    public GameObject bulletPrefab;
     public float radius;
     public float orbitalSpeed;
     private float angle;
@@ -16,7 +17,7 @@ public class PlayerShield : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         OrbitalMotion(radius, orbitalSpeed, playerTransform);
     }
 

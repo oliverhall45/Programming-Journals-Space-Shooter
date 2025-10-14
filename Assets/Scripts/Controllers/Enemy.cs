@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
 {
     public float speed;
     public Transform playerTransform;
+    public Transform shieldTransform;
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
     public float shootInterval = 1f;
@@ -108,6 +109,8 @@ public class Enemy : MonoBehaviour
         {
             bulletScript.SetDirection(direction);
             bulletScript.SetSpeed(bulletSpeed);
+            bulletScript.SetTarget(shieldTransform);
+
         }
     }
 

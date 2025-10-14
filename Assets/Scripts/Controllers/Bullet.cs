@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour
 {
-
+    public Transform shieldTransform;
     private Vector3 moveDirection;
     private float moveSpeed;
+    public float hitDistance = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +19,10 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        if (shieldTransform != null && Vector3.Distance(transform.position, shieldTransform.position) <= hitDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetDirection(Vector3 direction)
@@ -27,5 +33,10 @@ public class Bullet : MonoBehaviour
     public void SetSpeed(float speed)
     {
         moveSpeed = speed;
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        shieldTransform = newTarget;
     }
 }

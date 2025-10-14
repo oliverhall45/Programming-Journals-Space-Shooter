@@ -4,6 +4,11 @@ using System.Collections;
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public Transform playerTransform;
+    public GameObject bulletPrefab;
+    public float bulletSpeed = 10f;
+    public float shootInterval = 1f;
+    private float shootTimer = 0f;
 
     private bool moveRight = true;
     private bool moveLeft = false;
@@ -12,6 +17,14 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         EnemyMovement();
+
+        shootTimer += Time.deltaTime;
+
+        if (shootTimer >= shootInterval)
+        {
+            ShootAtPlayer();
+            shootTimer = 0f;
+        }
     }
 
     public void EnemyMovement()
@@ -78,6 +91,24 @@ public class Enemy : MonoBehaviour
         }
 
 
+    }
+
+    void ShootAtPlayer()
+    {
+
+        
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+        
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+
+        
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            bulletScript.SetDirection(direction);
+            bulletScript.SetSpeed(bulletSpeed);
+        }
     }
 
 }

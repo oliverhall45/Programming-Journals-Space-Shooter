@@ -5,6 +5,8 @@ using static UnityEngine.GraphicsBuffer;
 public class Bullet : MonoBehaviour
 {
     public Transform shieldTransform;
+    public Transform playerPos;
+    public GameObject player;
     private Vector3 moveDirection;
     private float moveSpeed;
     public float hitDistance = 0.5f;
@@ -22,6 +24,11 @@ public class Bullet : MonoBehaviour
         if (shieldTransform != null && Vector3.Distance(transform.position, shieldTransform.position) <= hitDistance)
         {
             Destroy(gameObject);
+        }
+
+        if (transform.position.x + 0.5f >= playerPos.position.x && transform.position.x - 0.5f <= playerPos.position.x && transform.position.y + 0.5f >= playerPos.position.y && transform.position.y - 0.5f <= playerPos.position.y)
+        {
+            Destroy(player);
         }
     }
 
